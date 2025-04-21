@@ -1,0 +1,34 @@
+# =====================================================================
+# GitHub Actions Workflow for Linting with ESLint
+# ---------------------------------------------------------------------
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>
+# SPDX-License-Identifier: MIT
+# ---------------------------------------------------------------------
+# Ensures that all files follow the project's ESLint rules.
+# =====================================================================
+
+name: "Run ESLint"
+description: "Runs ESLint to enforce coding standards."
+
+inputs:
+  fix_mode:
+    description: "Run ESLint in fix mode (true/false)."
+    required: false
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    # -------------------------------------------------------------
+    # Step 1: Run ESLint
+    # - If `fix_mode` is true, it will attempt to fix issues automatically.
+    # - Otherwise, it will only report violations.
+    # -------------------------------------------------------------
+    - name: 🔍 Run ESLint
+      run: |
+        if [[ "${{ inputs.fix_mode }}" == "true" ]]; then
+          npm run lint:fix
+        else
+          npm run lint
+        fi
+      shell: bash

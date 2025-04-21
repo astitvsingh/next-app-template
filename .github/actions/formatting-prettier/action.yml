@@ -1,0 +1,32 @@
+# =====================================================================
+# GitHub Actions Workflow for Setting Up the Node.js Environment
+# ---------------------------------------------------------------------
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>
+# SPDX-License-Identifier: MIT
+# =====================================================================
+
+name: "Run Prettier Formatting"
+description: "Formats code using Prettier to maintain consistency."
+
+inputs:
+  check_mode:
+    description: "Run in check mode (true/false)."
+    required: false
+    default: "true"
+
+runs:
+  using: "composite"
+  steps:
+    # -------------------------------------------------------------
+    # Step 1: Run Prettier
+    # - If `check_mode` is true, it will not modify files but report issues.
+    # - Otherwise, it will auto-format files.
+    # -------------------------------------------------------------
+    - name: 🎨 Run Prettier
+      run: |
+        if [[ "${{ inputs.check_mode }}" == "true" ]]; then
+          npm run prettier:check
+        else
+          npm run prettier:write
+        fi
+      shell: bash

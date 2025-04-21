@@ -1,0 +1,16 @@
+# =====================================================================
+# GitHub Actions Workflow for Setting Up the Node.js Environment
+# ---------------------------------------------------------------------
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>
+# SPDX-License-Identifier: MIT
+# =====================================================================
+
+name: "🔍 Run Linting"
+description: "Checks for code formatting issues"
+
+runs:
+  using: "composite"
+  steps:
+    - name: 🔍 Run Linting
+      run: npm run lint
+      shell: bash

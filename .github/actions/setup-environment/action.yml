@@ -1,0 +1,50 @@
+# =====================================================================
+# GitHub Actions Workflow for Setting Up the Node.js Environment
+# ---------------------------------------------------------------------
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>
+# SPDX-License-Identifier: MIT
+# =====================================================================
+
+name: "Setup Node.js Environment"
+description: "Checks out the repository and sets up the Node.js environment."
+
+inputs:
+  node_version:
+    description: "Node.js version to install (default: latest LTS)."
+    required: false
+    default: "lts/*"
+
+  cache:
+    description: "Cache strategy for dependencies (e.g., npm, yarn, pnpm)."
+    required: false
+    default: "npm"
+
+runs:
+  using: "composite"
+  steps:
+    # -------------------------------------------------------------
+    # Step 1: Checkout the Repository
+    # - Uses the GitHub-provided action `actions/checkout`
+    # - Clones the repository into the GitHub runner environment
+    # -------------------------------------------------------------
+    - name: 🛎️ Checkout Repository
+      uses: actions/checkout@v4
+
+    # -------------------------------------------------------------
+    # Step 2: Set Up Node.js Environment
+    # - Installs the specified Node.js version (default: latest LTS)
+    # - Enables caching based on user input (`npm`, `yarn`, `pnpm`)
+    # -------------------------------------------------------------
+    - name: ⚡ Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node_version }}
+        cache: ${{ inputs.cache }}
+
+    # -------------------------------------------------------------
+    # Step 3: Debug - List Repository Files
+    # - Provides visibility into the repo structure for debugging
+    # -------------------------------------------------------------
+    - name: 🗂️ List Repository Files
+      run: ls -R ${{ github.workspace }}
+      shell: bash

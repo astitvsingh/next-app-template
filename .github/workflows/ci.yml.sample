@@ -1,0 +1,109 @@
+# =====================================================================
+# GitHub Actions Workflow for Continuous Integration (CI)
+# ---------------------------------------------------------------------
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+# SPDX-License-Identifier: MIT
+# =====================================================================
+
+# =====================================================================
+# GitHub Actions Workflow for Continuous Integration (CI)
+# ---------------------------------------------------------------------
+# This workflow ensures that the `telegraf-adv` library maintains
+# code quality by performing automated checks on:
+# - Repository updates (`push`)
+# - Pull Requests (`pull_request`)
+#
+# The workflow includes:
+# 1. **Dependency Installation** - Ensures all required packages are available.
+# 2. **Linting** - Enforces coding standards.
+# 3. **TypeScript Compilation Check** - Ensures the project builds correctly.
+# 4. **Unit Testing** - Runs Jest tests to verify code correctness.
+# =====================================================================
+
+# Defines the name of the workflow
+name: Continuous Integration
+
+# Defines the name of the workflow
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
+# -------------------------------------------------------------
+# Specifies events that trigger the workflow
+# - Runs on every `push` or `pull_request` to `main` and `develop`
+# -------------------------------------------------------------
+on:
+  push:
+    branches: [main, develop] # Triggers when commits are pushed to these branches
+  pull_request:
+    branches: [main, develop] # Triggers when PRs are opened against these branches
+
+# -------------------------------------------------------------
+# Defines the jobs to be executed in this workflow
+# -------------------------------------------------------------
+jobs:
+  build-and-test: # Job name - runs all build & test tasks
+    runs-on: ubuntu-latest # Specifies the OS on which the job will run
+
+    steps:
+      # -------------------------------------------------------------
+      # Step 1: Checkout Repository
+      # - Clones the repository so the workflow can access the codebase
+      # -------------------------------------------------------------
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: 🛎️ Checkout Repository
+        uses: actions/checkout@v4
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+
+      # Debugging info
+      - name: 🗂️ List Repository Files
+        run: ls -R ${{ github.workspace }}
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+
+      # -------------------------------------------------------------
+      # Step 2: Setup Node.js Environment
+      # - Installs Node.js (latest LTS version) to run JavaScript/TypeScript
+      # - Caches `npm` dependencies to speed up future runs
+      # -------------------------------------------------------------
+      - name: ⚡ Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*" # Uses the latest Long-Term Support (LTS) Node.js version
+          cache: "npm" # Caches dependencies to optimize build speed
+
+      # -------------------------------------------------------------
+      # Step 3: Install Dependencies
+      # - Uses `npm ci` for a clean, reproducible install of dependencies
+      # - Ensures no unintentional dependency updates break the build
+      # -------------------------------------------------------------
+      - name: 📦 Install Dependencies
+        run: npm ci
+
+      # -------------------------------------------------------------
+      # Step 4: Run Linting
+      # - Checks for code style and formatting issues
+      # - Ensures best practices are followed before merging changes
+      # -------------------------------------------------------------
+      - name: 🔍 Run Linting
+        run: npm run lint
+        continue-on-error: false # Fail if linting issues exist
+
+      # -------------------------------------------------------------
+      # Step 5: TypeScript Compilation Check
+      # - Ensures the TypeScript code compiles without errors
+      # -------------------------------------------------------------
+      - name: 🔧 Run TypeScript Build
+        run: npm run build
+
+      # Debugging: Check build output
+      - name: 📂 List Build Output
+        run: ls -R ./dist
+
+      # -------------------------------------------------------------
+      # Step 6: Run Unit Tests
+      # - Executes Jest tests to verify correct functionality
+      # - Fails if any test case fails
+      # -------------------------------------------------------------
+      - name: ✅ Run Tests
+        run: npm run test -- --passWithNoTests

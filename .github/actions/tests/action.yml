@@ -1,0 +1,12 @@
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+# SPDX-License-Identifier: MIT
+
+name: "✅ Run Unit Tests"
+description: "Runs Jest unit tests"
+
+runs:
+  using: "composite"
+  steps:
+    - name: ✅ Run Tests
+      run: npm run test -- --passWithNoTests
+      shell: bash

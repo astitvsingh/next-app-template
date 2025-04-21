@@ -1,0 +1,20 @@
+# =====================================================================
+# GitHub Actions Workflow for Setting Up the Node.js Environment
+# ---------------------------------------------------------------------
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>
+# SPDX-License-Identifier: MIT
+# =====================================================================
+
+name: "🔧 Compile TypeScript"
+description: "Builds the TypeScript project"
+
+runs:
+  using: "composite"
+  steps:
+    - name: 🔧 Run TypeScript Build
+      run: npm run build
+      shell: bash
+
+    - name: 📂 List Build Output
+      run: ls -R ./dist
+      shell: bash

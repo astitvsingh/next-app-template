@@ -1,0 +1,46 @@
+# =====================================================================
+# GitHub Actions Workflow for Continuous Integration (CI)
+# ---------------------------------------------------------------------
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+# SPDX-License-Identifier: MIT
+# ---------------------------------------------------------------------
+# Modularized Workflow for `ts-boilerplate`
+# =====================================================================
+
+name: Continuous Integration
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "🎉 Job triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 Running on ${{ runner.os }}."
+      - run: echo "🔎 Branch: ${{ github.ref }} | Repo: ${{ github.repository }}"
+
+      # ✅ Step 1: Setup Environment
+      - name: 🛎️ Checkout & Setup Node.js
+        uses: ./.github/actions/setup-environment
+
+      # ✅ Step 2: Install Dependencies
+      - name: 📦 Install Dependencies
+        uses: ./.github/actions/install-dependencies
+
+      # ✅ Step 3: Run Linting
+      - name: 🔍 Run Linting
+        uses: ./.github/actions/linting
+
+      # ✅ Step 4: Compile TypeScript
+      - name: 🔧 Compile TypeScript
+        uses: ./.github/actions/compile
+
+      # ✅ Step 5: Run Tests
+      - name: ✅ Run Tests
+        uses: ./.github/actions/tests

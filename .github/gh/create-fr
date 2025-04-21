@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# USAGE:
+# Automates the creation of a GitHub feature request issue and sets up a feature branch using git flow.
+#
+# Run this script with:
+# bash ./.github/gh/create-fr
+#
+# Prerequisites:
+# - GitHub CLI (`gh`) is authenticated.
+# - jq is installed for JSON parsing.
+# - Git flow is initialized in the repository.
+# - The script should be executed from the repository root directory.
+
+set -e
+
+# Variables
+TITLE_TAG="✨[FR]:"
+TITLE_SUMMARY="Setup Auth Micro-Service"
+BODY_FILE="$(dirname "$0")/../FR_BODY.md"
+LABELS="✨ Feature Request,🌟 Feature,enhancement"
+ASSIGNEE="astitvsingh"
+
+# Log process start
+echo -e "\n🛠️  PROCESS START: Initiating feature request issue creation.\n"
+
+# Log issue details
+echo -e "📋 DETAILS:"
+echo -e "  - Title: $TITLE_TAG $TITLE_SUMMARY"
+echo -e "  - Labels: $LABELS"
+echo -e "  - Assignee: $ASSIGNEE\n"
+
+# Step 1: Create the GitHub issue
+echo -e "🚀 Creating GitHub issue..."
+gh issue create \
+  --title "$TITLE_TAG $TITLE_SUMMARY" \
+  --body-file "$BODY_FILE" \
+  --label "$LABELS" \
+  --assignee "$ASSIGNEE" > /dev/null
+
+if [ $? -ne 0 ]; then
+  echo -e "❌ Failed to create GitHub issue. Exiting...\n"
+  exit 1
+fi
+
+echo -e "✅ Feature request issue created successfully\n"
+
+# Step 3: Clear the body file
+echo -e "🧹 Clearing the content of the body file: $BODY_FILE..."
+> "$BODY_FILE"
+echo -e "✅ Body file cleared successfully.\n"
+
+# Step 4: Sync the local repository
+echo -e "🔄 Syncing with the latest changes from the 'develop' branch..."
+git fetch
+git pull origin develop
+echo -e "✅ Repository synced successfully.\n"
+
+# Final message
+echo -e "🎉 PROCESS COMPLETE: All operations completed successfully."

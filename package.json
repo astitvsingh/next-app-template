@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "git:flow:init": "git flow init --tag v --defaults --showcommands",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",

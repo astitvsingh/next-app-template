@@ -1,0 +1,20 @@
+/**
+ * Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+ * SPDX-License-Identifier: MIT
+ */
+
+/**
+ * Custom styles for the Navbar component.
+ */
+
+.mobileMenu {
+  transition: transform 300ms ease-in-out;
+  transform: translateY(0);
+}
+
+@media (max-width: 767px) {
+  .mobileMenu {
+    transform: translateY(-12%);
+    transform: translateX(-5%);
+  }
+}

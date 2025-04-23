@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MIT
 
 "use client";
-export * from "./blackpaper";
 export * from "./dapp";
-export * from "./getstarted";
 export * from "./home";
-export * from "./roadmap";
 export * from "./ui";
+export * from "./blackpaper";
+export * from "./getstarted";
+export * from "./roadmap";

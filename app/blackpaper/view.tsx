@@ -31,14 +31,17 @@ function View(): React.JSX.Element {
             UpDawg Blackpaper
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            A Decentralized Proof-of-Reserve token backed by TRX, designed for transparency and community-driven growth.
+            A Decentralized Proof-of-Reserve token backed by TRX, designed for
+            transparency and community-driven growth.
           </p>
         </div>
 
         {/* Quote Section */}
         <div className="bg-black/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8 mb-16 text-center">
           <p className="text-xl italic text-gray-300">
-            "We shouldn't delay forever until every possible feature is done. There's always going to be one more thing to do." ~ Satoshi Nakamoto
+            &quot;We shouldn&apos;t delay forever until every possible feature
+            is done. There&apos;s always going to be one more thing to do.&quot;
+            ~ Satoshi Nakamoto
           </p>
         </div>
 
@@ -46,11 +49,18 @@ function View(): React.JSX.Element {
         <div className="space-y-16">
           {/* Abstract */}
           <section className="bg-black/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8">
-            <h2 className="text-3xl font-bold mb-6 bg-clip-text">
-              Abstract
-            </h2>
+            <h2 className="text-3xl font-bold mb-6 bg-clip-text">Abstract</h2>
             <p className="text-gray-300 leading-relaxed">
-              UpDawg is a decentralized, TRC20 Proof-of-Reserve (TRC20-PoR) token on the TRON blockchain, designed to provide transparency, stability, and community-driven growth. The token operates on a flexi-supply model, where the minting and burning of UDAWG tokens are governed by user transactions on dawgDEX (UpDawg's built-in decentralized exchange). This blackpaper outlines the key features, mechanisms, and purpose of UpDawg, aiming to create a secure and engaging ecosystem for users by rewarding participation, promoting long-term holding, and ensuring full transparency via the Proof-of-Reserve mechanism.
+              UpDawg is a decentralized, TRC20 Proof-of-Reserve (TRC20-PoR)
+              token on the TRON blockchain, designed to provide transparency,
+              stability, and community-driven growth. The token operates on a
+              flexi-supply model, where the minting and burning of UDAWG tokens
+              are governed by user transactions on dawgDEX (UpDawg&apos;s
+              built-in decentralized exchange). This blackpaper outlines the key
+              features, mechanisms, and purpose of UpDawg, aiming to create a
+              secure and engaging ecosystem for users by rewarding
+              participation, promoting long-term holding, and ensuring full
+              transparency via the Proof-of-Reserve mechanism.
             </p>
           </section>
 
@@ -60,7 +70,14 @@ function View(): React.JSX.Element {
               Introduction
             </h2>
             <p className="text-gray-300 leading-relaxed">
-              UpDawg was launched on October 1, 2022, on the TRON blockchain. It operates using a TRC20 token standard and leverages TRON's speed and low transaction fees to deliver a user-friendly, community-driven DeFi experience. UpDawg features an innovative Proof-of-Reserve mechanism that guarantees that every UDAWG token is backed by TRX in reserve, ensuring stability and trust. UpDawg also includes a built-in DEX, dawgDEX, to facilitate decentralized trading of UDAWG against TRX.
+              UpDawg was launched on October 1, 2022, on the TRON blockchain. It
+              operates using a TRC20 token standard and leverages TRON&apos;s
+              speed and low transaction fees to deliver a user-friendly,
+              community-driven DeFi experience. UpDawg features an innovative
+              Proof-of-Reserve mechanism that guarantees that every UDAWG token
+              is backed by TRX in reserve, ensuring stability and trust. UpDawg
+              also includes a built-in DEX, dawgDEX, to facilitate decentralized
+              trading of UDAWG against TRX.
             </p>
           </section>
 
@@ -115,9 +132,12 @@ function View(): React.JSX.Element {
                   height={80}
                   className="mx-auto mb-4"
                 />
-                <h3 className="text-xl font-bold text-white mb-4">Proof-of-Reserve</h3>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  Proof-of-Reserve
+                </h3>
                 <p className="text-gray-300">
-                  Every UDAWG token is backed by TRX in reserve, ensuring stability and trust.
+                  Every UDAWG token is backed by TRX in reserve, ensuring
+                  stability and trust.
                 </p>
               </div>
               <div className="bg-gray-800/50 rounded-xl p-6 text-center transform transition-all duration-300 hover:scale-105">
@@ -130,7 +150,8 @@ function View(): React.JSX.Element {
                 />
                 <h3 className="text-xl font-bold text-white mb-4">dawgDEX</h3>
                 <p className="text-gray-300">
-                  Built-in decentralized exchange for seamless trading of UDAWG tokens.
+                  Built-in decentralized exchange for seamless trading of UDAWG
+                  tokens.
                 </p>
               </div>
               <div className="bg-gray-800/50 rounded-xl p-6 text-center transform transition-all duration-300 hover:scale-105">
@@ -141,9 +162,12 @@ function View(): React.JSX.Element {
                   height={80}
                   className="mx-auto mb-4"
                 />
-                <h3 className="text-xl font-bold text-white mb-4">Flexi-Supply</h3>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  Flexi-Supply
+                </h3>
                 <p className="text-gray-300">
-                  Dynamic supply adjustment through minting and burning mechanisms.
+                  Dynamic supply adjustment through minting and burning
+                  mechanisms.
                 </p>
               </div>
               <div className="bg-gray-800/50 rounded-xl p-6 text-center transform transition-all duration-300 hover:scale-105">
@@ -169,26 +193,39 @@ function View(): React.JSX.Element {
             </h2>
             <div className="space-y-8">
               <div>
-                <h3 className="text-xl font-bold text-white mb-4">Proof-of-Reserve Mechanism</h3>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  Proof-of-Reserve Mechanism
+                </h3>
                 <p className="text-gray-300 leading-relaxed">
-                  The Proof-of-Reserve mechanism ensures that every UDAWG token is backed by an equivalent amount of TRX in reserve. This relationship between the UDAWG supply and the TRX reserve determines the price of UDAWG at any given time.
+                  The Proof-of-Reserve mechanism ensures that every UDAWG token
+                  is backed by an equivalent amount of TRX in reserve. This
+                  relationship between the UDAWG supply and the TRX reserve
+                  determines the price of UDAWG at any given time.
                 </p>
                 <div className="mt-4 p-4 bg-gray-800/50 rounded-lg">
                   <p className="text-white font-mono">
                     Price of UDAWG = Total TRX in Reserve ÷ Total UDAWG Supply
                   </p>
                 </div>
-          </div>
+              </div>
 
-          <div>
-                <h3 className="text-xl font-bold text-white mb-4">Fee Structure</h3>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  Fee Structure
+                </h3>
                 <div className="overflow-x-auto">
                   <table className="w-full border-collapse">
                     <thead>
                       <tr className="bg-gray-800/50">
-                        <th className="p-4 text-left text-gray-300">TRX Reserve Target</th>
-                        <th className="p-4 text-left text-gray-300">Buy Fee (%)</th>
-                        <th className="p-4 text-left text-gray-300">Sell Fee (%)</th>
+                        <th className="p-4 text-left text-gray-300">
+                          TRX Reserve Target
+                        </th>
+                        <th className="p-4 text-left text-gray-300">
+                          Buy Fee (%)
+                        </th>
+                        <th className="p-4 text-left text-gray-300">
+                          Sell Fee (%)
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -203,7 +240,7 @@ function View(): React.JSX.Element {
                         ["1M <= Reserve < 10M", "0.3", "3"],
                         ["10M <= Reserve < 100M", "0.2", "2"],
                         ["100M <= Reserve < 1B", "0.1", "1"],
-                        ["Reserve >= 1B", "0.09", "0.9"]
+                        ["Reserve >= 1B", "0.09", "0.9"],
                       ].map((row, index) => (
                         <tr key={index} className="border-b border-gray-800">
                           <td className="p-4 text-gray-300">{row[0]}</td>
@@ -224,62 +261,91 @@ function View(): React.JSX.Element {
               Exchange TAX Distribution
             </h2>
             <p className="text-gray-300 leading-relaxed mb-6">
-              UpDawg employs a three-part tax system that funds project development, incentivizes holders, and supports price stability through burns.
+              UpDawg employs a three-part tax system that funds project
+              development, incentivizes holders, and supports price stability
+              through burns.
             </p>
             <div className="space-y-4">
               <div className="bg-gray-800/50 rounded-lg p-4">
-                <h3 className="text-xl font-bold text-white mb-2">Team sub-TAX (60%)</h3>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Team sub-TAX (60%)
+                </h3>
                 <p className="text-gray-300">
-                  Used to support the project's ongoing growth and development on the Tron blockchain.
+                  Used to support the project&apos;s ongoing growth and
+                  development on the Tron blockchain.
                 </p>
               </div>
               <div className="bg-gray-800/50 rounded-lg p-4">
-                <h3 className="text-xl font-bold text-white mb-2">HODL Pool sub-TAX (20%)</h3>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  HODL Pool sub-TAX (20%)
+                </h3>
                 <p className="text-gray-300">
-                  Distributed to eligible UDAWG holders who make a transaction or have called the Claim Reward function on the UpDawg smart contract.
+                  Distributed to eligible UDAWG holders who make a transaction
+                  or have called the Claim Reward function on the UpDawg smart
+                  contract.
                 </p>
               </div>
               <div className="bg-gray-800/50 rounded-lg p-4">
-                <h3 className="text-xl font-bold text-white mb-2">BURN sub-TAX (20%)</h3>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  BURN sub-TAX (20%)
+                </h3>
                 <p className="text-gray-300">
-                  These tokens collected through this sub-TAX are burned. This burning mechanism helps increase the value of UpDawg over time.
+                  These tokens collected through this sub-TAX are burned. This
+                  burning mechanism helps increase the value of UpDawg over
+                  time.
                 </p>
               </div>
-          </div>
+            </div>
           </section>
 
           {/* Tokenomics */}
           <section className="bg-black/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8">
-            <h2 className="text-3xl font-bold mb-6 bg-clip-text">
-              Tokenomics
-            </h2>
+            <h2 className="text-3xl font-bold mb-6 bg-clip-text">Tokenomics</h2>
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-bold text-white mb-2">Supply</h3>
                 <p className="text-gray-300">
-                  UDAWG operates on a flexi-supply model, where tokens are minted when bought with TRX and burned when sold, ensuring that supply is dynamically controlled.
+                  UDAWG operates on a flexi-supply model, where tokens are
+                  minted when bought with TRX and burned when sold, ensuring
+                  that supply is dynamically controlled.
                 </p>
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white mb-2">Fees</h3>
                 <p className="text-gray-300">
-                  Transaction fees are applied on both buy and sell transactions, with higher fees for selling to incentivize holding.
+                  Transaction fees are applied on both buy and sell
+                  transactions, with higher fees for selling to incentivize
+                  holding.
                 </p>
               </div>
-          <div>
-                <h3 className="text-xl font-bold text-white mb-2">Fee Distribution</h3>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Fee Distribution
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="bg-gray-800/50 rounded-lg p-4">
-                    <h4 className="text-lg font-bold text-white mb-2">60% to Team</h4>
-                    <p className="text-gray-300">Used for project development and maintenance.</p>
+                    <h4 className="text-lg font-bold text-white mb-2">
+                      60% to Team
+                    </h4>
+                    <p className="text-gray-300">
+                      Used for project development and maintenance.
+                    </p>
                   </div>
                   <div className="bg-gray-800/50 rounded-lg p-4">
-                    <h4 className="text-lg font-bold text-white mb-2">20% to BURN</h4>
-                    <p className="text-gray-300">Reduces the total supply of UDAWG.</p>
+                    <h4 className="text-lg font-bold text-white mb-2">
+                      20% to BURN
+                    </h4>
+                    <p className="text-gray-300">
+                      Reduces the total supply of UDAWG.
+                    </p>
                   </div>
                   <div className="bg-gray-800/50 rounded-lg p-4">
-                    <h4 className="text-lg font-bold text-white mb-2">20% to HODLPool</h4>
-                    <p className="text-gray-300">Distributed to long-term holders as rewards.</p>
+                    <h4 className="text-lg font-bold text-white mb-2">
+                      20% to HODLPool
+                    </h4>
+                    <p className="text-gray-300">
+                      Distributed to long-term holders as rewards.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -288,21 +354,32 @@ function View(): React.JSX.Element {
 
           {/* HODLPool */}
           <section className="bg-black/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8">
-            <h2 className="text-3xl font-bold mb-6 bg-clip-text">
-              HODLPool
-            </h2>
+            <h2 className="text-3xl font-bold mb-6 bg-clip-text">HODLPool</h2>
             <p className="text-gray-300 leading-relaxed">
-              HODLPool is a feature in UpDawg that allows UDAWG token holders to earn a share of the exchange transaction tax collected by the UpDawg protocol. To claim their share of HODLPool, UDAWG holders do not have to stake their tokens, but instead, they have to call the Claim Reward function on the UpDawg smart contract. The formula for the Claim Reward function is "Reward" + "Bonus", where "Reward" is determined by the formula - [(Current Time - Time of Last Claim) ÷ 24 hours] × (HODLer's balance of UDAWG before the Claim Reward is called ÷ Total Supply of UDAWG before the Claim Reward is called) × (Current HODLPool)], and The "Bonus" is 0.01% of "Reward", which are newly minted tokens issued to the caller of the Claim Reward function.
+              HODLPool is a feature in UpDawg that allows UDAWG token holders to
+              earn a share of the exchange transaction tax collected by the
+              UpDawg protocol. To claim their share of HODLPool, UDAWG holders
+              do not have to stake their tokens, but instead, they have to call
+              the Claim Reward function on the UpDawg smart contract. The
+              formula for the Claim Reward function is &quot;Reward&quot; + &quot;Bonus&quot;, where
+              &quot;Reward&quot; is determined by the formula - [(Current Time - Time of
+              Last Claim) ÷ 24 hours] × (HODLer&apos;s balance of UDAWG before
+              the Claim Reward is called ÷ Total Supply of UDAWG before the
+              Claim Reward is called) × (Current HODLPool)], and The &quot;Bonus&quot; is
+              0.01% of &quot;Reward&quot;, which are newly minted tokens issued to the
+              caller of the Claim Reward function.
             </p>
           </section>
 
           {/* Timepot */}
           <section className="bg-black/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8">
-            <h2 className="text-3xl font-bold mb-6 bg-clip-text">
-              Timepot
-            </h2>
+            <h2 className="text-3xl font-bold mb-6 bg-clip-text">Timepot</h2>
             <p className="text-gray-300 leading-relaxed">
-              UpDawg's smart contract has a unique feature called Timepot, which calculates HODLers claim rewards whenever their balance is updated, including transactions such as Buy, Sell, Burn, and Transfer. This innovative feature ensures that HODLers are always incentivized and rewarded for holding their tokens.
+              UpDawg&apos;s smart contract has a unique feature called Timepot,
+              which calculates HODLers claim rewards whenever their balance is
+              updated, including transactions such as Buy, Sell, Burn, and
+              Transfer. This innovative feature ensures that HODLers are always
+              incentivized and rewarded for holding their tokens.
             </p>
           </section>
 
@@ -312,17 +389,23 @@ function View(): React.JSX.Element {
               Transparency
             </h2>
             <p className="text-gray-300 leading-relaxed">
-              The UpDawg smart contract is fully auditable on the TRON blockchain, providing transparency to all users. The Proof-of-Reserve mechanism ensures that UDAWG tokens are always backed by TRX, mitigating the risk of manipulation or devaluation.
+              The UpDawg smart contract is fully auditable on the TRON
+              blockchain, providing transparency to all users. The
+              Proof-of-Reserve mechanism ensures that UDAWG tokens are always
+              backed by TRX, mitigating the risk of manipulation or devaluation.
             </p>
           </section>
 
           {/* Conclusion */}
           <section className="bg-black/50 backdrop-blur-sm border border-gray-800/50 rounded-xl p-8">
-            <h2 className="text-3xl font-bold mb-6 bg-clip-text">
-              Conclusion
-            </h2>
+            <h2 className="text-3xl font-bold mb-6 bg-clip-text">Conclusion</h2>
             <p className="text-gray-300 leading-relaxed mb-8">
-              UpDawg is not a standard TRC20 token. It is a decentralized, transparent, and community-driven TRC20 token with a flexible supply backed by TRX reserves. The token's Proof of Reserve, dynamic fee structure, burning mechanism, and HODLPool rewards system create a sustainable and rewarding ecosystem for TRON users.
+              UpDawg is not a standard TRC20 token. It is a decentralized,
+              transparent, and community-driven TRC20 token with a flexible
+              supply backed by TRX reserves. The token&apos;s Proof of Reserve,
+              dynamic fee structure, burning mechanism, and HODLPool rewards
+              system create a sustainable and rewarding ecosystem for TRON
+              users.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Link
@@ -346,11 +429,11 @@ function View(): React.JSX.Element {
               >
                 Join Community
               </Link>
-          </div>
-        </section>
+            </div>
+          </section>
         </div>
-    </div>
-    <Footer />
+      </div>
+      <Footer />
     </div>
   );
 }

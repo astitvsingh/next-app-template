@@ -2,6 +2,6 @@
 // SPDX-License-Identifier: MIT
 
 "use client"; // Enables client-side rendering in Next.js 13+ app directory
-import { AuthLoginView } from "@/app";
+import { SignupView } from "@/app";
 
-export default AuthLoginView;
+export default SignupView;

@@ -1,25 +1,15 @@
-"use client"; // Enables client-side rendering in Next.js app directory
+// Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+// SPDX-License-Identifier: MIT
 
-// -------------------------------------
-// External Dependencies
-// -------------------------------------
-import { useState } from "react"; // React hook to manage component-level state
+"use client";
+import React, { useState } from "react";
 
 // -------------------------------------
 // Internal Module Imports
 // -------------------------------------
-import { register } from "../../lib/auth/register"; // Custom registration API function
+import { signup } from "@/app"; // Custom registration API function
 
-/**
- * SignupPage Component
- *
- * This component renders a user signup form that allows users to
- * create an account by entering an email and password.
- * Upon form submission, it sends a registration request to the backend.
- *
- * @returns JSX.Element - A signup form component.
- */
-function SignupPage() {
+function View(): React.JSX.Element {
   // -------------------------------------
   // Local State Hooks
   // -------------------------------------
@@ -39,8 +29,8 @@ function SignupPage() {
     e.preventDefault(); // Prevents default form submission behavior
 
     try {
-      // Attempts to register the user with backend auth API
-      const data = await register(email, password);
+      // Attempts to signup the user with backend auth API
+      const data = await signup(email, password);
 
       // Shows success message and logs returned data (e.g., token or user object)
       alert("Signup Success: " + JSON.stringify(data));
@@ -81,4 +71,4 @@ function SignupPage() {
   );
 }
 
-export default SignupPage;
+export { View };

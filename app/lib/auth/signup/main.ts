@@ -1,7 +1,13 @@
-// -----------------------------------------------------------------------------
-// External Dependencies
-// -----------------------------------------------------------------------------
-import axios from "axios"; // Promise-based HTTP client for browser and Node.js
+// Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+// SPDX-License-Identifier: MIT
+
+/**
+ * External dependency used to perform HTTP requests.
+ * Axios is a promise-based HTTP client for the browser and Node.js.
+ * It supports the Promise API that is native to JS ES6+.
+ * @see {@link https://axios-http.com/docs/intro | Axios Documentation}
+ */
+import axios from "axios";
 
 /**
  * Registers a new user by sending a POST request to the authentication server.
@@ -25,12 +31,12 @@ import axios from "axios"; // Promise-based HTTP client for browser and Node.js
  * console.log(user); // { token: "...", user: { ... } }
  * ```
  */
-async function register(email: string, password: string): Promise<Response> {
+async function main(email: string, password: string): Promise<Response> {
   // Make a POST request to the registration endpoint
   const response = await axios.post(
     `${process.env.NEXT_PUBLIC_AUTH_SERVER}/api/v1/auth/register`, // Auth server base URL from environment
     {
-      email,    // Email included in request body
+      email, // Email included in request body
       password, // Password included in request body
     }
   );
@@ -39,5 +45,12 @@ async function register(email: string, password: string): Promise<Response> {
   return response.data;
 }
 
-// Export `register` function for usage in other parts of the application
-export { register };
+/**
+ * Exporting the main function as a named export so it can be imported elsewhere.
+ *
+ * @example
+ * ```ts
+ * import { main } from "./path/to/authModule";
+ * ```
+ */
+export { main };

@@ -1,3 +1,6 @@
+// Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+// SPDX-License-Identifier: MIT
+
 /**
  * External dependency used to perform HTTP requests.
  * Axios is a promise-based HTTP client for the browser and Node.js.
@@ -6,7 +9,6 @@
  */
 import axios from "axios";
 
-
 /**
  * Authenticates a user by making a POST request to the authentication server.
  *
@@ -14,7 +16,7 @@ import axios from "axios";
  * The server URL is dynamically read from environment variables loaded via `dotenv`.
  *
  * @async
- * @function login
+ * @function main
  * @param {string} email - The email address of the user trying to log in.
  * @param {string} password - The plaintext password of the user.
  * @returns {Promise<any>} Resolves to the response data returned by the authentication server.
@@ -25,12 +27,12 @@ import axios from "axios";
  * ```ts
  * const email = "user@example.com";
  * const password = "secret123";
- * login(email, password)
+ * main(email, password)
  *   .then((data) => console.log("Login Successful", data))
  *   .catch((err) => console.error("Login Failed", err));
  * ```
  */
-async function login(email: string, password: string): Promise<Response> {
+async function main(email: string, password: string): Promise<Response> {
   console.log(process.env.NODE_ENV);
   console.log("Auth server is:", process.env.NEXT_PUBLIC_AUTH_SERVER);
 
@@ -48,11 +50,11 @@ async function login(email: string, password: string): Promise<Response> {
 }
 
 /**
- * Exporting the login function as a named export so it can be imported elsewhere.
+ * Exporting the main function as a named export so it can be imported elsewhere.
  *
  * @example
  * ```ts
- * import { login } from "./path/to/authModule";
+ * import { main } from "./path/to/authModule";
  * ```
  */
-export { login };
+export { main };

@@ -1,6 +1,4 @@
 // Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
 // SPDX-License-Identifier: MIT
 
-"use client";
-// export * from "./components";
-export { View as AuthLoginView } from "./view";
+export { main as signin } from "./main";

@@ -3,6 +3,4 @@
 
 "use client";
 // export * from "./components";
-export * from "./login";
-// export * from "./register";
-export { View as AuthView } from "./view";
+export { View as SignupView } from "./view";

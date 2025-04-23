@@ -1,0 +1,17 @@
+
+
+services:
+  frontend:
+    build: 
+      context: .
+      dockerfile: ${DOCKERFILE}
+    ports:
+      - "3000:3000"
+    container_name: nextjs-frontend
+    networks:
+      - shared-net
+    restart: unless-stopped
+
+networks:
+  shared-net:
+    external: true

@@ -1,0 +1,23 @@
+FROM node:18.19.1-alpine3.18
+WORKDIR /app
+
+# Copy dependency definitions first (for better caching)
+COPY package.json package-lock.json ./
+
+# Clean install with npm ci (includes devDependencies)
+RUN --mount=type=cache,target=/root/.npm npm ci
+
+# Copy source files (rely on .dockerignore to exclude unnecessary files)
+COPY . .
+
+# Set environment
+ENV NODE_ENV=development
+
+# Expose the app's port
+EXPOSE 3000
+
+# Healthcheck for container monitoring
+HEALTHCHECK --interval=30s --timeout=3s CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
+
+# Run the app in development mode
+CMD ["npm", "run", "dev"]

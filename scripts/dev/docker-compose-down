@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# This script is used to stop and remove Docker containers using Docker Compose.
+# It ensures that all services defined in docker-compose.yml are stopped and removed cleanly.
+
+# USAGE:
+# Execute this script with:
+#   bash ./scripts/dev/docker-compose-down
+
+# Prerequisites:
+# - Ensure Docker and Docker Compose are installed.
+# - Ensure GitHub CLI (`gh`) is installed if authentication is needed.
+# - You must have access to the GitHub account you wish to authenticate.
+
+# Exit immediately if any command fails
+set -e
+
+# Stop and remove the Docker Compose services
+DOCKERFILE=Dockerfile.dev ENV=development docker compose -f 'docker-compose.yml' down
+
+# List remaining Docker containers
+docker ps

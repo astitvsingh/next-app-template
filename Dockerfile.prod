@@ -1,0 +1,53 @@
+# ===========================
+# Build Stage
+# ===========================
+FROM node:18.19.1-alpine3.18 AS builder
+WORKDIR /app
+
+# Copy dependency definitions first (for better caching)
+COPY package.json package-lock.json ./
+
+# Clean install with npm ci
+RUN --mount=type=cache,target=/root/.npm npm ci
+
+# Copy only source files
+COPY app ./app
+COPY lib ./lib
+COPY public ./public
+COPY next.config.ts tsconfig.json ./
+COPY .envs ./.envs
+# COPY .env.production.local ./
+
+# Build the app
+RUN npm run build
+
+# ===========================
+# Runtime Stage (Production)
+# ===========================
+FROM node:18.19.1-alpine3.18
+
+# Set non-root user for security
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+WORKDIR /app
+
+# Copy built files and production dependencies from the builder stage
+COPY --from=builder /app/package.json /app/package-lock.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+
+# Set environment
+ENV NODE_ENV=production
+
+# Set to run as non-root user for security
+USER appuser
+
+# Expose the app's port
+EXPOSE 3000
+
+# Healthcheck for container monitoring
+HEALTHCHECK --interval=30s --timeout=3s CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
+
+# Run the app
+CMD ["npm", "start"]

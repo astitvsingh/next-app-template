@@ -2,6 +2,6 @@
 // SPDX-License-Identifier: MIT
 
 "use client";
-import { DappView } from "@/app";
+import { AuthView } from "@/app";
 
-export default DappView;
+export default AuthView;

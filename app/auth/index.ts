@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 "use client";
-export * from "./components";
+// export * from "./components";
 export * from "./login";
-export * from "./register";
+// export * from "./register";
 export { View as AuthView } from "./view";

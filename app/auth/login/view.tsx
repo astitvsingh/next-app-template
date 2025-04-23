@@ -10,7 +10,7 @@ import React, { useState } from "react"; // React hook for managing local compon
 // ------------------------------
 // Internal Imports
 // ------------------------------
-import { login } from "../../lib/auth/login"; // Custom login function to authenticate user
+import { login } from "@/app"; // Custom login function to authenticate user
 
 /**
  * LoginPage Component

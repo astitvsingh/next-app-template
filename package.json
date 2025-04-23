@@ -3,19 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "git:flow:init": "git flow init --tag v --defaults --showcommands",
+    "gh:setup": "bash ./.github/gh/setup",
+    "clean": "rimraf node_modules dist coverage .next",
+    "preinstall": "node -v",
+    "clean:install": "npm clean-install",
+    "postinstall": "npm -v",
+    "next:dev": "cross-env NODE_ENV=development next dev --turbopack",
+    "next:build": "cross-env NODE_ENV=production next build",
+    "next:start": "cross-env NODE_ENV=production next start",
+    "next:lint": "next lint"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.1",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
     "framer-motion": "^12.7.4",
     "next": "^15.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+    "rimraf": "^6.0.1",
     "tronweb": "^5.3.3"
   },
   "devDependencies": {

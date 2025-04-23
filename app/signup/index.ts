@@ -2,4 +2,5 @@
 // SPDX-License-Identifier: MIT
 
 "use client";
-// export * from "./heroSection";
+// export * from "./components";
+export { View as SignupView } from "./view";

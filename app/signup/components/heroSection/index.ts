@@ -2,4 +2,5 @@
 // SPDX-License-Identifier: MIT
 
 "use client";
-// export * from "./heroSection";
+export { Component as HeroSection } from "./component";
+export type { Prop as HeroSectionProp } from "./prop";

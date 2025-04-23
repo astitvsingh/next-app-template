@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# This script is used to start Docker containers using Docker Compose.
+# It ensures that the latest configuration is built and runs in detached mode.
+
+# USAGE:
+# Execute this script with:
+#   bash ./scripts/prod/docker-compose-up
+ 
+DOCKERFILE=Dockerfile.prod docker compose -f 'docker-compose.yml' up -d --build
+
+# List running Docker containers
+docker ps

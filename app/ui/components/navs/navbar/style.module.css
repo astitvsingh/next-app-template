@@ -4,5 +4,17 @@
  */
 
 /**
- * Custom styles for the component.
+ * Custom styles for the Navbar component.
  */
+
+.mobileMenu {
+  transition: transform 300ms ease-in-out;
+  transform: translateY(0);
+}
+
+@media (max-width: 767px) {
+  .mobileMenu {
+    transform: translateY(-12%);
+    transform: translateX(-5%);
+  }
+}

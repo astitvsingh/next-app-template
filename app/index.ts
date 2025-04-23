@@ -6,5 +6,8 @@ export * from "./blackpaper";
 export * from "./dapp";
 export * from "./getstarted";
 export * from "./home";
+export * from "./lib";
+export * from "./signin";
+export * from "./signup";
 export * from "./roadmap";
 export * from "./ui";

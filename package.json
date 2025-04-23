@@ -2,6 +2,7 @@
   "name": "next-app-template",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "git:flow:init": "git flow init --tag v --defaults --showcommands",
     "gh:setup": "bash ./.github/gh/setup",

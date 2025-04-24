@@ -1,5 +1,7 @@
-"use client";
+// Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+// SPDX-License-Identifier: MIT
 
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -56,7 +58,9 @@ function Component(prop: Prop): React.JSX.Element {
     <nav
       className={clsx(
         "fixed top-0 left-0 p-4 w-full z-50 transition-all duration-300",
-        isScrolled ? "h-20 border-2 border-gray-800 bg-black shadow-lg" : "h-24 bg-black shadow-md",
+        isScrolled
+          ? "h-20 border-2 border-gray-800 bg-black shadow-lg"
+          : "h-24 bg-black shadow-md",
         className
       )}
     >
@@ -121,12 +125,12 @@ function Component(prop: Prop): React.JSX.Element {
 
       {/* Mobile Navigation Menu */}
       {isOpen && (
-        <div 
+        <div
           ref={menuRef}
           className={clsx(
             "md:hidden bg-black border-gray-200 fixed  w-full h-full transition-all duration-300",
             styles.mobileMenu
-          )} 
+          )}
           id="mobile-menu"
         >
           <div className="px-2 pt-2 pb-3  sm:px-3">

@@ -4,22 +4,11 @@
 "use client";
 import React, { useEffect } from "react";
 import clsx from "clsx";
+import type { Prop } from "./prop";
+import "./style.module.css";
 
-interface AlertProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  message: string;
-  type?: "success" | "error" | "info";
-}
-
-function Component({
-  isOpen,
-  onClose,
-  title,
-  message,
-  type = "info",
-}: AlertProps): React.JSX.Element | null {
+function Component(prop: Prop): React.JSX.Element | null {
+  const { isOpen, onClose, title, message, type = "info" } = prop;
   useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => {
@@ -52,7 +41,13 @@ function Component({
 
   return (
     <div className="fixed top-4 right-4 z-50 max-w-sm w-full">
-      <div className={clsx("rounded-lg border p-4 shadow-lg", bgColor, borderColor)}>
+      <div
+        className={clsx(
+          "rounded-lg border p-4 shadow-lg",
+          bgColor,
+          borderColor
+        )}
+      >
         <div className="flex items-start">
           <div className="flex-shrink-0">
             {type === "success" && (
@@ -108,11 +103,7 @@ function Component({
               className="inline-flex rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:text-gray-500 dark:hover:text-gray-400"
             >
               <span className="sr-only">Close</span>
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
+              <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fillRule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -127,4 +118,4 @@ function Component({
   );
 }
 
-export { Component as Alert }; 
+export { Component };

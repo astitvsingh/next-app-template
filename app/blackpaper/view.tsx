@@ -3,20 +3,14 @@
 
 "use client";
 import React from "react";
-import { Navbar, mainNavLinks } from "@/app";
-import { Footer } from "@/app/ui/components/footer";
+// import { Navbar, mainNavLinks } from "@/app";
+import { Footer } from "@/app/ui/components/sections/footer";
 import Image from "next/image";
 import Link from "next/link";
 
 function View(): React.JSX.Element {
   return (
     <div className="min-h-screen bg-black">
-      <Navbar
-        logoSrc="/assets/images/logo.png"
-        logoAlt="Company Logo"
-        links={mainNavLinks}
-      />
-
       <div className="container mt-12 mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -361,12 +355,13 @@ function View(): React.JSX.Element {
               UpDawg protocol. To claim their share of HODLPool, UDAWG holders
               do not have to stake their tokens, but instead, they have to call
               the Claim Reward function on the UpDawg smart contract. The
-              formula for the Claim Reward function is &quot;Reward&quot; + &quot;Bonus&quot;, where
-              &quot;Reward&quot; is determined by the formula - [(Current Time - Time of
-              Last Claim) ÷ 24 hours] × (HODLer&apos;s balance of UDAWG before
-              the Claim Reward is called ÷ Total Supply of UDAWG before the
-              Claim Reward is called) × (Current HODLPool)], and The &quot;Bonus&quot; is
-              0.01% of &quot;Reward&quot;, which are newly minted tokens issued to the
+              formula for the Claim Reward function is &quot;Reward&quot; +
+              &quot;Bonus&quot;, where &quot;Reward&quot; is determined by the
+              formula - [(Current Time - Time of Last Claim) ÷ 24 hours] ×
+              (HODLer&apos;s balance of UDAWG before the Claim Reward is called
+              ÷ Total Supply of UDAWG before the Claim Reward is called) ×
+              (Current HODLPool)], and The &quot;Bonus&quot; is 0.01% of
+              &quot;Reward&quot;, which are newly minted tokens issued to the
               caller of the Claim Reward function.
             </p>
           </section>

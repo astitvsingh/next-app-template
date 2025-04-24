@@ -2,5 +2,5 @@
 // SPDX-License-Identifier: MIT
 
 "use client";
-export * from "./components";
+export * from "../ui/components/sections";
 export { View as HomeView } from "./view";

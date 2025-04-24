@@ -1,8 +1,14 @@
+// Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+// SPDX-License-Identifier: MIT
+
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+// import { Prop } from "./prop";
+import "./style.module.css";
 
-export function Footer(): React.JSX.Element {
+function Component(): React.JSX.Element {
   return (
     <footer className="bg-black/50 backdrop-blur-sm border-t border-gray-800/50">
       <div className="container mx-auto px-6 py-12">
@@ -18,7 +24,9 @@ export function Footer(): React.JSX.Element {
               />
               <h2 className="text-2xl font-bold text-white">UpDawg</h2>
             </div>
-            <p className="text-gray-400">A Decentralized Proof-of-Reserve token backed by TRX.</p>
+            <p className="text-gray-400">
+              A Decentralized Proof-of-Reserve token backed by TRX.
+            </p>
             <p className="text-gray-400">
               <Link
                 href="https://tronscan.org/#/token20/TFLBD1LgA9aqeJqiiUnHAd9q3CUpqvop3k"
@@ -34,29 +42,44 @@ export function Footer(): React.JSX.Element {
           <div className="grid grid-cols-2 gap-4 text-gray-400">
             <div className="space-y-2">
               <p>
-                <Link href="/blackpaper" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/blackpaper"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   <i className="fas fa-scroll mr-2"></i> Blackpaper
                 </Link>
               </p>
               <p>
-                <Link href="/roadmap" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/roadmap"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   <i className="fas fa-road mr-2"></i> Roadmap
                 </Link>
               </p>
               <p>
-                <Link href="/getstarted" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/getstarted"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   <i className="fas fa-question mr-2"></i> Get Started
                 </Link>
               </p>
             </div>
             <div className="space-y-2">
               <p>
-                <Link href="/dapp" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/dapp"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   <i className="fas fa-connectdevelop mr-2"></i> dApp
                 </Link>
               </p>
               <p>
-                <Link href="/chat" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/chat"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   <i className="fas fa-comments mr-2"></i> Bark
                 </Link>
               </p>
@@ -77,7 +100,8 @@ export function Footer(): React.JSX.Element {
                   rel="noopener noreferrer"
                   className="hover:text-blue-400 transition-colors"
                 >
-                  <i className="fas fa-users mr-2"></i> UpDawg Community Contributors
+                  <i className="fas fa-users mr-2"></i> UpDawg Community
+                  Contributors
                 </Link>
               </p>
             </div>
@@ -133,4 +157,6 @@ export function Footer(): React.JSX.Element {
       </div>
     </footer>
   );
-} 
+}
+
+export { Component };

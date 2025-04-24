@@ -8,6 +8,5 @@ const nextConfig: NextConfig = {
 // Load environment variables from .envs
 import { loadEnv } from "./app/lib/utils/loadEnv";
 loadEnv();
-console.log("ENV1: " + process.env.ENV1);
 
 export default nextConfig;

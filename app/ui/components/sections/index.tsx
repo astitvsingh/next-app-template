@@ -2,4 +2,5 @@
 // SPDX-License-Identifier: MIT
 
 "use client";
-// export * from "./heroSection";
+export * from "./footer";
+export * from "./heroSection";

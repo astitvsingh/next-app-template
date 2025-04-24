@@ -3,8 +3,8 @@
 
 "use client";
 import React, { useState, useEffect } from "react";
-import { Navbar, mainNavLinks } from "@/app";
-import { Alert } from "@/app/ui/components/alerts/alert/component";
+// import { Navbar, mainNavLinks } from "@/app";
+import { Alert } from "@/app/ui";
 import {
   WalletIcon,
   FireIcon,
@@ -19,7 +19,7 @@ import {
   HeartIcon,
   ClockIcon,
 } from "@heroicons/react/24/outline";
-import { Footer } from "@/app/ui/components/footer";
+import { Footer } from "@/app/ui";
 
 // Declare window type for TronLink
 declare global {
@@ -51,7 +51,7 @@ interface ContractCache {
 let contractCache: ContractCache = {
   instance: null,
   updatedAt: null,
-  interval: 30000 // 30 seconds cache
+  interval: 30000, // 30 seconds cache
 };
 
 // Network configuration
@@ -64,7 +64,7 @@ interface NetworkConfig {
 const network: NetworkConfig = {
   mainnet: "TFLBD1LgA9aqeJqiiUnHAd9q3CUpqvop3k", // UpDawg mainnet contract
   shasta: "TBLUAJ22D6TagPUXjqi5UmqEYx9RdfkiAX", // UpDawg testnet contract
-  cur: null
+  cur: null,
 };
 
 // Get the TronWeb object from the window object
@@ -79,8 +79,11 @@ function getTronWeb() {
 // Get cached or fresh contract instance
 async function getContract() {
   const now = new Date();
-  if (!contractCache.instance || !contractCache.updatedAt || 
-      contractCache.interval <= (now.getTime() - contractCache.updatedAt.getTime())) {
+  if (
+    !contractCache.instance ||
+    !contractCache.updatedAt ||
+    contractCache.interval <= now.getTime() - contractCache.updatedAt.getTime()
+  ) {
     try {
       const tronWeb = getTronWeb();
       if (!network.cur) {
@@ -101,9 +104,17 @@ async function getContract() {
 function getNet() {
   if (typeof window.tronLink !== "undefined" && window.tronLink.tronWeb) {
     try {
-      if (window.tronLink.tronWeb.fullNode.host.includes("https://api.trongrid.io")) {
+      if (
+        window.tronLink.tronWeb.fullNode.host.includes(
+          "https://api.trongrid.io"
+        )
+      ) {
         network.cur = "mainnet";
-      } else if (window.tronLink.tronWeb.fullNode.host.includes("https://api.shasta.trongrid.io")) {
+      } else if (
+        window.tronLink.tronWeb.fullNode.host.includes(
+          "https://api.shasta.trongrid.io"
+        )
+      ) {
         network.cur = "shasta";
       }
     } catch (error) {
@@ -130,7 +141,9 @@ function View(): React.JSX.Element {
   const [account, setAccount] = useState<string | null>(null);
   const [trxBalance, setTrxBalance] = useState<number | null>(null);
   const [udawgBalance, setUdawgBalance] = useState<number | null>(null);
-  const [circulatingSupply, setCirculatingSupply] = useState<number | null>(null);
+  const [circulatingSupply, setCirculatingSupply] = useState<number | null>(
+    null
+  );
   const [hodlSupply, setHodlSupply] = useState<number | null>(null);
   const [totalSupply, setTotalSupply] = useState<number | null>(null);
   const [trxReserve, setTrxReserve] = useState<number | null>(null);
@@ -157,7 +170,9 @@ function View(): React.JSX.Element {
   const [sellSliderValue, setSellSliderValue] = useState(0);
   const [burnSliderValue, setBurnSliderValue] = useState(0);
   const [donateSliderValue, setDonateSliderValue] = useState(0);
-  const [activeTab, setActiveTab] = useState<"buy" | "sell" | "burn" | "donate">("buy");
+  const [activeTab, setActiveTab] = useState<
+    "buy" | "sell" | "burn" | "donate"
+  >("buy");
   const [alert, setAlert] = useState<AlertState>({
     isOpen: false,
     title: "",
@@ -177,7 +192,11 @@ function View(): React.JSX.Element {
   };
 
   // Function to show alert
-  const showAlert = (title: string, message: string, type: "success" | "error" | "info") => {
+  const showAlert = (
+    title: string,
+    message: string,
+    type: "success" | "error" | "info"
+  ) => {
     setAlert({ isOpen: true, title, message, type });
     setTimeout(() => {
       closeAlert();
@@ -210,7 +229,14 @@ function View(): React.JSX.Element {
   };
 
   // Function to calculate sell value
-  const calculateSellValue = async (contract: any, balance: number, totalSupply: number, reserve: number, sellFees: number, basisPoint: number) => {
+  const calculateSellValue = async (
+    contract: any,
+    balance: number,
+    totalSupply: number,
+    reserve: number,
+    sellFees: number,
+    basisPoint: number
+  ) => {
     try {
       // Calculate fees
       const fees = (sellFees * balance) / Math.pow(10, basisPoint);
@@ -244,32 +270,36 @@ function View(): React.JSX.Element {
   // Function to calculate timepot age
   const calculateTimepotAge = (prevClaimTimestamp: number) => {
     const now = new Date().getTime();
-    let remainingAge = now - (prevClaimTimestamp * 1000); // Convert seconds to milliseconds
+    let remainingAge = now - prevClaimTimestamp * 1000; // Convert seconds to milliseconds
     let final = "";
 
     // Calculate days
-    if (remainingAge >= 86400000) { // 24 hours in milliseconds
+    if (remainingAge >= 86400000) {
+      // 24 hours in milliseconds
       const days = Math.floor(remainingAge / 86400000);
-      remainingAge = remainingAge - (days * 86400000);
+      remainingAge = remainingAge - days * 86400000;
       final = `${days}d:`;
     }
 
     // Calculate hours
-    if (remainingAge >= 3600000) { // 1 hour in milliseconds
+    if (remainingAge >= 3600000) {
+      // 1 hour in milliseconds
       const hours = Math.floor(remainingAge / 3600000);
-      remainingAge = remainingAge - (hours * 3600000);
+      remainingAge = remainingAge - hours * 3600000;
       final += `${hours}h:`;
     }
 
     // Calculate minutes
-    if (remainingAge >= 60000) { // 1 minute in milliseconds
+    if (remainingAge >= 60000) {
+      // 1 minute in milliseconds
       const minutes = Math.floor(remainingAge / 60000);
-      remainingAge = remainingAge - (minutes * 60000);
+      remainingAge = remainingAge - minutes * 60000;
       final += `${minutes}m:`;
     }
 
     // Calculate seconds
-    if (remainingAge >= 1000) { // 1 second in milliseconds
+    if (remainingAge >= 1000) {
+      // 1 second in milliseconds
       const seconds = Math.floor(remainingAge / 1000);
       final += `${seconds}s`;
     }
@@ -291,7 +321,8 @@ function View(): React.JSX.Element {
       const decimals = DECIMALS;
 
       // Calculate base reward
-      const baseReward = (timepotAge * balance * hodlSupply) / (BASE_AGE * totalSupply);
+      const baseReward =
+        (timepotAge * balance * hodlSupply) / (BASE_AGE * totalSupply);
 
       // Calculate inflation (1% of base reward)
       const inflation = (baseReward * 0.01) / 100;
@@ -304,7 +335,7 @@ function View(): React.JSX.Element {
         finalReward = baseReward + inflation;
       }
 
-      return finalReward ;
+      return finalReward;
     } catch (error) {
       console.error("Failed to calculate unclaimed rewards:", error);
       return null;
@@ -323,7 +354,7 @@ function View(): React.JSX.Element {
           getNet(); // Determine network
           const tronWebInstance = getTronWeb();
           const contract = await getContract();
-          
+
           if (!contract) {
             throw new Error("Failed to get contract instance");
           }
@@ -332,18 +363,24 @@ function View(): React.JSX.Element {
           setAccount(userAccount);
 
           // Fetch TRX balance
-          const userTrxBalance = await tronWebInstance.trx.getBalance(userAccount);
+          const userTrxBalance = await tronWebInstance.trx.getBalance(
+            userAccount
+          );
           setTrxBalance(userTrxBalance / 1_000_000); // Convert from sun to TRX
 
           // Fetch previous claim timestamp and calculate timepot age
-          const prevClaimResult = await contract.prevClaimOf(userAccount).call();
+          const prevClaimResult = await contract
+            .prevClaimOf(userAccount)
+            .call();
           if (prevClaimResult) {
             setPrevClaim(formatTimestamp(prevClaimResult));
             const timepotAgeValue = calculateTimepotAge(prevClaimResult);
             setTimepotAge(timepotAgeValue);
 
             // Fetch UpDawg balance
-            const rawUdawgBalance = await contract.balanceOf(userAccount).call();
+            const rawUdawgBalance = await contract
+              .balanceOf(userAccount)
+              .call();
             const udawgBalance = rawUdawgBalance / Math.pow(10, DECIMALS);
             setUdawgBalance(udawgBalance);
 
@@ -365,7 +402,7 @@ function View(): React.JSX.Element {
               contract,
               userAccount,
               udawgBalance,
-              new Date().getTime() - (prevClaimResult * 1000),
+              new Date().getTime() - prevClaimResult * 1000,
               totalSupply,
               hodlSupply
             );
@@ -400,12 +437,14 @@ function View(): React.JSX.Element {
           setBasisPoint(rawBasisPoint);
 
           const rawSellFees = await contract.sellFees().call();
-          const sellFeesPercentage = (rawSellFees * 100) / Math.pow(10, rawBasisPoint);
+          const sellFeesPercentage =
+            (rawSellFees * 100) / Math.pow(10, rawBasisPoint);
           setSellFees(sellFeesPercentage);
 
           // Fetch fees and convert to percentage
           const rawBuyFees = await contract.buyFees().call();
-          const buyFeesPercentage = (rawBuyFees * 100) / Math.pow(10, rawBasisPoint);
+          const buyFeesPercentage =
+            (rawBuyFees * 100) / Math.pow(10, rawBasisPoint);
           setBuyFees(buyFeesPercentage);
 
           setConnected(true);
@@ -437,8 +476,8 @@ function View(): React.JSX.Element {
 
     // Add network change listener
     if (window.tronLink) {
-      window.addEventListener('message', (event) => {
-        if (event.data.message && event.data.message.action === 'setNode') {
+      window.addEventListener("message", (event) => {
+        if (event.data.message && event.data.message.action === "setNode") {
           showAlert("Network Changed", "Refreshing app...", "info");
           window.location.reload();
         }
@@ -447,7 +486,7 @@ function View(): React.JSX.Element {
 
     return () => {
       // Cleanup listener
-      window.removeEventListener('message', () => {});
+      window.removeEventListener("message", () => {});
     };
   }, []);
 
@@ -466,11 +505,7 @@ function View(): React.JSX.Element {
         );
       }
     } else {
-      showAlert(
-        "Wallet Not Found",
-        "Please install TronLink wallet.",
-        "error"
-      );
+      showAlert("Wallet Not Found", "Please install TronLink wallet.", "error");
     }
   };
 
@@ -491,10 +526,10 @@ function View(): React.JSX.Element {
         // Update unclaimed rewards
         const rawUdawgBalance = await contract.balanceOf(userAccount).call();
         const udawgBalance = rawUdawgBalance / Math.pow(10, DECIMALS);
-        
+
         const rawTotalSupply = await contract.totalSupply().call();
         const totalSupply = rawTotalSupply / Math.pow(10, DECIMALS);
-        
+
         const rawHodlSupply = await contract.hodlSupply().call();
         const hodlSupply = rawHodlSupply / Math.pow(10, DECIMALS);
 
@@ -502,7 +537,7 @@ function View(): React.JSX.Element {
           contract,
           userAccount,
           udawgBalance,
-          new Date().getTime() - (prevClaimResult * 1000),
+          new Date().getTime() - prevClaimResult * 1000,
           totalSupply,
           hodlSupply
         );
@@ -521,8 +556,6 @@ function View(): React.JSX.Element {
     }
   }, [connected]);
 
-  
-
   // Function to update all data except timepot age and rewards
   const updateData = async () => {
     try {
@@ -534,7 +567,7 @@ function View(): React.JSX.Element {
 
       // Fetch TRX balance
       const userTrxBalance = await tronWebInstance.trx.getBalance(userAccount);
-      setTrxBalance(userTrxBalance /  Math.pow(10, DECIMALS));
+      setTrxBalance(userTrxBalance / Math.pow(10, DECIMALS));
 
       // Fetch UpDawg balance
       const rawUdawgBalance = await contract.balanceOf(userAccount).call();
@@ -588,12 +621,14 @@ function View(): React.JSX.Element {
       setBasisPoint(rawBasisPoint);
 
       const rawSellFees = await contract.sellFees().call();
-      const sellFeesPercentage = (rawSellFees * 100) / Math.pow(10, rawBasisPoint);
+      const sellFeesPercentage =
+        (rawSellFees * 100) / Math.pow(10, rawBasisPoint);
       setSellFees(sellFeesPercentage);
 
       // Fetch fees and convert to percentage
       const rawBuyFees = await contract.buyFees().call();
-      const buyFeesPercentage = (rawBuyFees * 100) / Math.pow(10, rawBasisPoint);
+      const buyFeesPercentage =
+        (rawBuyFees * 100) / Math.pow(10, rawBasisPoint);
       setBuyFees(buyFeesPercentage);
     } catch (error) {
       console.error("Error updating data:", error);
@@ -623,16 +658,16 @@ function View(): React.JSX.Element {
 
       // Call claimReward function
       const transaction = await contract.claimReward().send();
-      
+
       showAlert(
         "Success",
         `Reward claimed successfully! Transaction: ${transaction}`,
         "success"
       );
-      
+
       // Update TRX balance immediately after transaction
       await updateData();
-      
+
       // Update all data after successful claim
       await updateData();
     } catch (error) {
@@ -660,19 +695,29 @@ function View(): React.JSX.Element {
 
     const amount = parseFloat(buyAmount);
     if (!amount || amount <= 0) {
-      showAlert("Invalid Amount", "Please enter a valid amount greater than 0.", "error");
+      showAlert(
+        "Invalid Amount",
+        "Please enter a valid amount greater than 0.",
+        "error"
+      );
       return;
     }
 
     try {
       setIsBuying(true);
-      showAlert("Transaction Pending", "Please sign the transaction...", "info");
+      showAlert(
+        "Transaction Pending",
+        "Please sign the transaction...",
+        "info"
+      );
 
       const tronWebInstance = getTronWeb();
       const contract = await getWriteContract();
 
       // Convert TRX amount to sun (1 TRX = 1,000,000 sun)
-      const amountInSun = tronWebInstance.toBigNumber(amount * 1_000_000).toString(10);
+      const amountInSun = tronWebInstance
+        .toBigNumber(amount * 1_000_000)
+        .toString(10);
 
       // Create transaction and wait for signature
       const signedTx = await contract.buy().send({
@@ -734,19 +779,29 @@ function View(): React.JSX.Element {
 
     const amount = parseFloat(sellAmount);
     if (!amount || amount <= 0) {
-      showAlert("Invalid Amount", "Please enter a valid amount greater than 0.", "error");
+      showAlert(
+        "Invalid Amount",
+        "Please enter a valid amount greater than 0.",
+        "error"
+      );
       return;
     }
 
     try {
       setIsSelling(true);
-      showAlert("Transaction Pending", "Please sign the transaction...", "info");
+      showAlert(
+        "Transaction Pending",
+        "Please sign the transaction...",
+        "info"
+      );
 
       const tronWebInstance = getTronWeb();
       const contract = await getWriteContract();
 
       // Convert amount to token decimals
-      const amountInDecimals = tronWebInstance.toBigNumber(amount * Math.pow(10, DECIMALS)).toString(10);
+      const amountInDecimals = tronWebInstance
+        .toBigNumber(amount * Math.pow(10, DECIMALS))
+        .toString(10);
 
       // Create transaction and wait for signature
       const signedTx = await contract.sell(amountInDecimals).send({
@@ -764,11 +819,7 @@ function View(): React.JSX.Element {
         try {
           const receipt = await tronWebInstance.trx.getTransaction(signedTx);
           if (receipt) {
-            showAlert(
-              "Success",
-              "UDAWG tokens sold successfully!",
-              "success"
-            );
+            showAlert("Success", "UDAWG tokens sold successfully!", "success");
             // Update all data after successful sale
             await updateData();
           }
@@ -807,19 +858,29 @@ function View(): React.JSX.Element {
 
     const amount = parseFloat(burnAmount);
     if (!amount || amount <= 0) {
-      showAlert("Invalid Amount", "Please enter a valid amount greater than 0.", "error");
+      showAlert(
+        "Invalid Amount",
+        "Please enter a valid amount greater than 0.",
+        "error"
+      );
       return;
     }
 
     try {
       setIsBurning(true);
-      showAlert("Transaction Pending", "Please sign the transaction...", "info");
+      showAlert(
+        "Transaction Pending",
+        "Please sign the transaction...",
+        "info"
+      );
 
       const tronWebInstance = getTronWeb();
       const contract = await getWriteContract();
 
       // Convert amount to token decimals
-      const amountInDecimals = tronWebInstance.toBigNumber(amount * Math.pow(10, DECIMALS)).toString(10);
+      const amountInDecimals = tronWebInstance
+        .toBigNumber(amount * Math.pow(10, DECIMALS))
+        .toString(10);
 
       // Create transaction and wait for signature
       const signedTx = await contract.burn(amountInDecimals).send({
@@ -877,19 +938,29 @@ function View(): React.JSX.Element {
 
     const amount = parseFloat(donateAmount);
     if (!amount || amount <= 0) {
-      showAlert("Invalid Amount", "Please enter a valid amount greater than 0.", "error");
+      showAlert(
+        "Invalid Amount",
+        "Please enter a valid amount greater than 0.",
+        "error"
+      );
       return;
     }
 
     try {
       setIsDonating(true);
-      showAlert("Transaction Pending", "Please sign the transaction...", "info");
+      showAlert(
+        "Transaction Pending",
+        "Please sign the transaction...",
+        "info"
+      );
 
       const tronWebInstance = getTronWeb();
       const contract = await getWriteContract();
 
       // Convert amount to token decimals
-      const amountInDecimals = tronWebInstance.toBigNumber(amount * Math.pow(10, DECIMALS)).toString(10);
+      const amountInDecimals = tronWebInstance
+        .toBigNumber(amount * Math.pow(10, DECIMALS))
+        .toString(10);
 
       // Create transaction and wait for signature
       const signedTx = await contract.donateReward(amountInDecimals).send({
@@ -935,7 +1006,10 @@ function View(): React.JSX.Element {
   };
 
   // Function to handle slider changes
-  const handleSliderChange = (value: number, type: "buy" | "sell" | "burn" | "donate") => {
+  const handleSliderChange = (
+    value: number,
+    type: "buy" | "sell" | "burn" | "donate"
+  ) => {
     const maxValue = type === "buy" ? trxBalance : udawgBalance;
     if (!maxValue) return;
 
@@ -962,11 +1036,6 @@ function View(): React.JSX.Element {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-[#0c0c0c] to-black">
-      <Navbar
-        logoSrc="/assets/images/logo.png"
-        logoAlt="Company Logo"
-        links={mainNavLinks}
-      />
       <div className="container mx-auto px-4 sm:px-6 py-12 mt-16">
         <h1 className="text-4xl font-bold mb-6 text-center text-white">
           UpDawg DApp
@@ -992,30 +1061,46 @@ function View(): React.JSX.Element {
                       <BanknotesIcon className="h-5 w-5 mr-2 text-gray-400" />
                       Connected Account
                     </h3>
-                    <p className="text-gray-300 break-all text-sm font-mono bg-black/20 p-3 rounded-lg">{account}</p>
+                    <p className="text-gray-300 break-all text-sm font-mono bg-black/20 p-3 rounded-lg">
+                      {account}
+                    </p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Balance Section */}
                     <div className="bg-black/30 p-6 rounded-xl border border-gray-800/30">
                       <h3 className="text-white font-medium flex items-center mb-3">
-                        <img src="/assets/images/trx.png" alt="TRX" className="h-6 w-6 mr-2" />
+                        <img
+                          src="/assets/images/trx.png"
+                          alt="TRX"
+                          className="h-6 w-6 mr-2"
+                        />
                         TRX Balance
                       </h3>
                       <p className="text-gray-300 text-xl break-all">
-                        {trxBalance ? formatWithCommas(trxBalance) : "Loading..."} 
+                        {trxBalance
+                          ? formatWithCommas(trxBalance)
+                          : "Loading..."}
                         <span className="text-sm ml-2 text-gray-400">TRX</span>
                       </p>
                     </div>
 
                     <div className="bg-black/30 p-6 rounded-xl border border-gray-800/30">
                       <h3 className="text-white font-medium flex items-center mb-3">
-                        <img src="/assets/images/logo.png" alt="UDAWG" className="h-6 w-6 mr-2" />
+                        <img
+                          src="/assets/images/logo.png"
+                          alt="UDAWG"
+                          className="h-6 w-6 mr-2"
+                        />
                         UpDawg Balance
                       </h3>
                       <p className="text-gray-300 text-xl break-all">
-                        {udawgBalance ? formatWithCommas(udawgBalance) : "Loading..."} 
-                        <span className="text-sm ml-2 text-gray-400">UDAWG</span>
+                        {udawgBalance
+                          ? formatWithCommas(udawgBalance)
+                          : "Loading..."}
+                        <span className="text-sm ml-2 text-gray-400">
+                          UDAWG
+                        </span>
                       </p>
                     </div>
 
@@ -1036,11 +1121,19 @@ function View(): React.JSX.Element {
                         Sell Value
                       </h3>
                       <p className="text-gray-300 text-xl break-all flex items-center">
-                        {sellValue ? `≈ ${formatWithCommas(sellValue)}` : "Loading..."} 
-                        <img src="/assets/images/trx.png" alt="TRX" className="h-5 w-5 ml-2" />
+                        {sellValue
+                          ? `≈ ${formatWithCommas(sellValue)}`
+                          : "Loading..."}
+                        <img
+                          src="/assets/images/trx.png"
+                          alt="TRX"
+                          className="h-5 w-5 ml-2"
+                        />
                       </p>
                       <p className="text-xs text-gray-400 mt-2">
-                        Including {sellFees ? sellFees.toFixed(2) : "Loading..."}% Sell Tax
+                        Including{" "}
+                        {sellFees ? sellFees.toFixed(2) : "Loading..."}% Sell
+                        Tax
                       </p>
                     </div>
 
@@ -1072,8 +1165,14 @@ function View(): React.JSX.Element {
                         Unclaimed Rewards
                       </h3>
                       <p className="text-gray-300 text-xl break-all flex items-center">
-                        {unclaimedRewards !== null ? `≈ ${formatWithCommas(unclaimedRewards)}` : "Loading..."} 
-                        <img src="/assets/images/logo.png" alt="UDAWG" className="h-5 w-5 ml-2" />
+                        {unclaimedRewards !== null
+                          ? `≈ ${formatWithCommas(unclaimedRewards)}`
+                          : "Loading..."}
+                        <img
+                          src="/assets/images/logo.png"
+                          alt="UDAWG"
+                          className="h-5 w-5 ml-2"
+                        />
                       </p>
                     </div>
                   </div>
@@ -1185,9 +1284,18 @@ function View(): React.JSX.Element {
                             min="0"
                             max="100"
                             value={buySliderValue}
-                            onChange={(e) => handleSliderChange(parseInt(e.target.value), "buy")}
+                            onChange={(e) =>
+                              handleSliderChange(
+                                parseInt(e.target.value),
+                                "buy"
+                              )
+                            }
                             className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:hover:scale-110 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-blue-500 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:transition-all [&::-moz-range-thumb]:hover:scale-110 [&::-webkit-slider-runnable-track]:bg-[linear-gradient(to_right,theme(colors.blue.500)_var(--slider-fill),theme(colors.gray.700)_var(--slider-fill))] [&::-webkit-slider-runnable-track]:h-2 [&::-webkit-slider-runnable-track]:rounded-lg [&::-moz-range-track]:bg-[linear-gradient(to_right,theme(colors.blue.500)_var(--slider-fill),theme(colors.gray.700)_var(--slider-fill))] [&::-moz-range-track]:h-2 [&::-moz-range-track]:rounded-lg"
-                            style={{ "--slider-fill": `${buySliderValue}%` } as React.CSSProperties}
+                            style={
+                              {
+                                "--slider-fill": `${buySliderValue}%`,
+                              } as React.CSSProperties
+                            }
                             disabled={!connected || isBuying}
                           />
                           <div className="flex justify-between text-xs text-gray-400 mt-2">
@@ -1197,13 +1305,28 @@ function View(): React.JSX.Element {
                           </div>
                         </div>
                         <p className="mt-4 text-sm text-gray-400 flex items-center">
-                          Available Balance: {trxBalance ? formatWithCommas(trxBalance) : "Loading..."} 
-                          <img src="/assets/images/trx.png" alt="TRX" className="h-4 w-4 ml-2" />
+                          Available Balance:{" "}
+                          {trxBalance
+                            ? formatWithCommas(trxBalance)
+                            : "Loading..."}
+                          <img
+                            src="/assets/images/trx.png"
+                            alt="TRX"
+                            className="h-4 w-4 ml-2"
+                          />
                         </p>
                         {buyAmount && udawgPrice && (
                           <p className="mt-2 text-sm text-gray-300">
-                            You will receive approximately: {formatWithCommas(parseFloat(buyAmount) * udawgPrice * (1 - (buyFees || 0) / 100))} UDAWG
-                            <span className="text-xs text-gray-400 ml-2">(including {buyFees?.toFixed(2) || "0"}% buy tax)</span>
+                            You will receive approximately:{" "}
+                            {formatWithCommas(
+                              parseFloat(buyAmount) *
+                                udawgPrice *
+                                (1 - (buyFees || 0) / 100)
+                            )}{" "}
+                            UDAWG
+                            <span className="text-xs text-gray-400 ml-2">
+                              (including {buyFees?.toFixed(2) || "0"}% buy tax)
+                            </span>
                           </p>
                         )}
                       </div>
@@ -1212,7 +1335,9 @@ function View(): React.JSX.Element {
                         onClick={handleBuy}
                         disabled={!connected || isBuying || !buyAmount}
                         className={`w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl hover:from-blue-500 hover:to-blue-600 transition-all duration-300 ${
-                          (!connected || isBuying || !buyAmount) ? "opacity-50 cursor-not-allowed" : ""
+                          !connected || isBuying || !buyAmount
+                            ? "opacity-50 cursor-not-allowed"
+                            : ""
                         }`}
                       >
                         {isBuying ? "Processing..." : "Buy UDAWG"}
@@ -1236,7 +1361,9 @@ function View(): React.JSX.Element {
                               setSellAmount(e.target.value);
                               const value = parseFloat(e.target.value);
                               if (!isNaN(value) && udawgBalance) {
-                                setSellSliderValue((value / udawgBalance) * 100);
+                                setSellSliderValue(
+                                  (value / udawgBalance) * 100
+                                );
                               }
                             }}
                             placeholder="Enter amount in UDAWG"
@@ -1250,9 +1377,18 @@ function View(): React.JSX.Element {
                             min="0"
                             max="100"
                             value={sellSliderValue}
-                            onChange={(e) => handleSliderChange(parseInt(e.target.value), "sell")}
+                            onChange={(e) =>
+                              handleSliderChange(
+                                parseInt(e.target.value),
+                                "sell"
+                              )
+                            }
                             className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:hover:scale-110 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-blue-500 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:transition-all [&::-moz-range-thumb]:hover:scale-110 [&::-webkit-slider-runnable-track]:bg-[linear-gradient(to_right,theme(colors.blue.500)_var(--slider-fill),theme(colors.gray.700)_var(--slider-fill))] [&::-webkit-slider-runnable-track]:h-2 [&::-webkit-slider-runnable-track]:rounded-lg [&::-moz-range-track]:bg-[linear-gradient(to_right,theme(colors.blue.500)_var(--slider-fill),theme(colors.gray.700)_var(--slider-fill))] [&::-moz-range-track]:h-2 [&::-moz-range-track]:rounded-lg"
-                            style={{ "--slider-fill": `${sellSliderValue}%` } as React.CSSProperties}
+                            style={
+                              {
+                                "--slider-fill": `${sellSliderValue}%`,
+                              } as React.CSSProperties
+                            }
                             disabled={!connected || isSelling}
                           />
                           <div className="flex justify-between text-xs text-gray-400 mt-2">
@@ -1262,13 +1398,28 @@ function View(): React.JSX.Element {
                           </div>
                         </div>
                         <p className="mt-4 text-sm text-gray-400 flex items-center">
-                          Available Balance: {udawgBalance ? formatWithCommas(udawgBalance) : "Loading..."} 
-                          <img src="/assets/images/logo.png" alt="UDAWG" className="h-4 w-4 ml-2" />
+                          Available Balance:{" "}
+                          {udawgBalance
+                            ? formatWithCommas(udawgBalance)
+                            : "Loading..."}
+                          <img
+                            src="/assets/images/logo.png"
+                            alt="UDAWG"
+                            className="h-4 w-4 ml-2"
+                          />
                         </p>
                         {sellAmount && udawgPrice && (
                           <p className="mt-2 text-sm text-gray-300">
-                            You will receive approximately: {formatWithCommas((parseFloat(sellAmount) / udawgPrice) * (1 - (sellFees || 0) / 100))} TRX
-                            <span className="text-xs text-gray-400 ml-2">(including {sellFees?.toFixed(2) || "0"}% sell tax)</span>
+                            You will receive approximately:{" "}
+                            {formatWithCommas(
+                              (parseFloat(sellAmount) / udawgPrice) *
+                                (1 - (sellFees || 0) / 100)
+                            )}{" "}
+                            TRX
+                            <span className="text-xs text-gray-400 ml-2">
+                              (including {sellFees?.toFixed(2) || "0"}% sell
+                              tax)
+                            </span>
                           </p>
                         )}
                       </div>
@@ -1277,7 +1428,9 @@ function View(): React.JSX.Element {
                         onClick={handleSell}
                         disabled={!connected || isSelling || !sellAmount}
                         className={`w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl hover:from-blue-500 hover:to-blue-600 transition-all duration-300 ${
-                          (!connected || isSelling || !sellAmount) ? "opacity-50 cursor-not-allowed" : ""
+                          !connected || isSelling || !sellAmount
+                            ? "opacity-50 cursor-not-allowed"
+                            : ""
                         }`}
                       >
                         {isSelling ? "Processing..." : "Sell UDAWG"}
@@ -1301,7 +1454,9 @@ function View(): React.JSX.Element {
                               setBurnAmount(e.target.value);
                               const value = parseFloat(e.target.value);
                               if (!isNaN(value) && udawgBalance) {
-                                setBurnSliderValue((value / udawgBalance) * 100);
+                                setBurnSliderValue(
+                                  (value / udawgBalance) * 100
+                                );
                               }
                             }}
                             placeholder="Enter amount in UDAWG to burn"
@@ -1315,9 +1470,18 @@ function View(): React.JSX.Element {
                             min="0"
                             max="100"
                             value={burnSliderValue}
-                            onChange={(e) => handleSliderChange(parseInt(e.target.value), "burn")}
+                            onChange={(e) =>
+                              handleSliderChange(
+                                parseInt(e.target.value),
+                                "burn"
+                              )
+                            }
                             className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-red-500 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:hover:scale-110 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-red-500 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:transition-all [&::-moz-range-thumb]:hover:scale-110 [&::-webkit-slider-runnable-track]:bg-[linear-gradient(to_right,theme(colors.red.500)_var(--slider-fill),theme(colors.gray.700)_var(--slider-fill))] [&::-webkit-slider-runnable-track]:h-2 [&::-webkit-slider-runnable-track]:rounded-lg [&::-moz-range-track]:bg-[linear-gradient(to_right,theme(colors.red.500)_var(--slider-fill),theme(colors.gray.700)_var(--slider-fill))] [&::-moz-range-track]:h-2 [&::-moz-range-track]:rounded-lg"
-                            style={{ "--slider-fill": `${burnSliderValue}%` } as React.CSSProperties}
+                            style={
+                              {
+                                "--slider-fill": `${burnSliderValue}%`,
+                              } as React.CSSProperties
+                            }
                             disabled={!connected || isBurning}
                           />
                           <div className="flex justify-between text-xs text-gray-400 mt-2">
@@ -1327,8 +1491,15 @@ function View(): React.JSX.Element {
                           </div>
                         </div>
                         <p className="mt-4 text-sm text-gray-400 flex items-center">
-                          Available Balance: {udawgBalance ? formatWithCommas(udawgBalance) : "Loading..."} 
-                          <img src="/assets/images/logo.png" alt="UDAWG" className="h-4 w-4 ml-2" />
+                          Available Balance:{" "}
+                          {udawgBalance
+                            ? formatWithCommas(udawgBalance)
+                            : "Loading..."}
+                          <img
+                            src="/assets/images/logo.png"
+                            alt="UDAWG"
+                            className="h-4 w-4 ml-2"
+                          />
                         </p>
                       </div>
 
@@ -1336,7 +1507,9 @@ function View(): React.JSX.Element {
                         onClick={handleBurn}
                         disabled={!connected || isBurning || !burnAmount}
                         className={`w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-3 px-6 rounded-xl hover:from-red-500 hover:to-red-600 transition-all duration-300 ${
-                          (!connected || isBurning || !burnAmount) ? "opacity-50 cursor-not-allowed" : ""
+                          !connected || isBurning || !burnAmount
+                            ? "opacity-50 cursor-not-allowed"
+                            : ""
                         }`}
                       >
                         {isBurning ? "Processing..." : "Burn UDAWG"}
@@ -1360,7 +1533,9 @@ function View(): React.JSX.Element {
                               setDonateAmount(e.target.value);
                               const value = parseFloat(e.target.value);
                               if (!isNaN(value) && udawgBalance) {
-                                setDonateSliderValue((value / udawgBalance) * 100);
+                                setDonateSliderValue(
+                                  (value / udawgBalance) * 100
+                                );
                               }
                             }}
                             placeholder="Enter amount in UDAWG to donate"
@@ -1374,9 +1549,18 @@ function View(): React.JSX.Element {
                             min="0"
                             max="100"
                             value={donateSliderValue}
-                            onChange={(e) => handleSliderChange(parseInt(e.target.value), "donate")}
+                            onChange={(e) =>
+                              handleSliderChange(
+                                parseInt(e.target.value),
+                                "donate"
+                              )
+                            }
                             className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-500 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:hover:scale-110 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-purple-500 [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:transition-all [&::-moz-range-thumb]:hover:scale-110 [&::-webkit-slider-runnable-track]:bg-[linear-gradient(to_right,theme(colors.purple.500)_var(--slider-fill),theme(colors.gray.700)_var(--slider-fill))] [&::-webkit-slider-runnable-track]:h-2 [&::-webkit-slider-runnable-track]:rounded-lg [&::-moz-range-track]:bg-[linear-gradient(to_right,theme(colors.purple.500)_var(--slider-fill),theme(colors.gray.700)_var(--slider-fill))] [&::-moz-range-track]:h-2 [&::-moz-range-track]:rounded-lg"
-                            style={{ "--slider-fill": `${donateSliderValue}%` } as React.CSSProperties}
+                            style={
+                              {
+                                "--slider-fill": `${donateSliderValue}%`,
+                              } as React.CSSProperties
+                            }
                             disabled={!connected || isDonating}
                           />
                           <div className="flex justify-between text-xs text-gray-400 mt-2">
@@ -1386,8 +1570,15 @@ function View(): React.JSX.Element {
                           </div>
                         </div>
                         <p className="mt-4 text-sm text-gray-400 flex items-center">
-                          Available Balance: {udawgBalance ? formatWithCommas(udawgBalance) : "Loading..."} 
-                          <img src="/assets/images/logo.png" alt="UDAWG" className="h-4 w-4 ml-2" />
+                          Available Balance:{" "}
+                          {udawgBalance
+                            ? formatWithCommas(udawgBalance)
+                            : "Loading..."}
+                          <img
+                            src="/assets/images/logo.png"
+                            alt="UDAWG"
+                            className="h-4 w-4 ml-2"
+                          />
                         </p>
                       </div>
 
@@ -1395,7 +1586,9 @@ function View(): React.JSX.Element {
                         onClick={handleDonate}
                         disabled={!connected || isDonating || !donateAmount}
                         className={`w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 px-6 rounded-xl hover:from-purple-500 hover:to-purple-600 transition-all duration-300 ${
-                          (!connected || isDonating || !donateAmount) ? "opacity-50 cursor-not-allowed" : ""
+                          !connected || isDonating || !donateAmount
+                            ? "opacity-50 cursor-not-allowed"
+                            : ""
                         }`}
                       >
                         {isDonating ? "Processing..." : "Donate UDAWG"}
@@ -1414,51 +1607,83 @@ function View(): React.JSX.Element {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-black/30 p-6 rounded-xl border border-gray-800/30">
                     <h3 className="text-white font-medium flex items-center mb-3">
-                      <img src="/assets/images/trx.png" alt="TRX" className="h-6 w-6 mr-2" />
+                      <img
+                        src="/assets/images/trx.png"
+                        alt="TRX"
+                        className="h-6 w-6 mr-2"
+                      />
                       Current Price
                     </h3>
                     <p className="text-gray-300 text-xl break-all">
-                      {udawgPrice ? `1 TRX ≈ ${udawgPrice.toFixed(6)} UDAWG` : "Loading..."}
+                      {udawgPrice
+                        ? `1 TRX ≈ ${udawgPrice.toFixed(6)} UDAWG`
+                        : "Loading..."}
                     </p>
                   </div>
 
                   <div className="bg-black/30 p-6 rounded-xl border border-gray-800/30">
                     <h3 className="text-white font-medium flex items-center mb-3">
-                      <img src="/assets/images/logo.png" alt="UDAWG" className="h-6 w-6 mr-2" />
+                      <img
+                        src="/assets/images/logo.png"
+                        alt="UDAWG"
+                        className="h-6 w-6 mr-2"
+                      />
                       Circulating Supply
                     </h3>
                     <p className="text-gray-300 text-xl break-all">
-                      {circulatingSupply ? formatWithCommas(circulatingSupply) : "Loading..."} UDAWG
+                      {circulatingSupply
+                        ? formatWithCommas(circulatingSupply)
+                        : "Loading..."}{" "}
+                      UDAWG
                     </p>
                   </div>
 
                   <div className="bg-black/30 p-6 rounded-xl border border-gray-800/30">
                     <h3 className="text-white font-medium flex items-center mb-3">
-                      <img src="/assets/images/logo.png" alt="UDAWG" className="h-6 w-6 mr-2" />
+                      <img
+                        src="/assets/images/logo.png"
+                        alt="UDAWG"
+                        className="h-6 w-6 mr-2"
+                      />
                       HODL Supply
                     </h3>
                     <p className="text-gray-300 text-xl break-all">
-                      {hodlSupply !== null ? formatWithCommas(hodlSupply) : "Loading..."} UDAWG
+                      {hodlSupply !== null
+                        ? formatWithCommas(hodlSupply)
+                        : "Loading..."}{" "}
+                      UDAWG
                     </p>
                   </div>
 
                   <div className="bg-black/30 p-6 rounded-xl border border-gray-800/30">
                     <h3 className="text-white font-medium flex items-center mb-3">
-                      <img src="/assets/images/logo.png" alt="UDAWG" className="h-6 w-6 mr-2" />
+                      <img
+                        src="/assets/images/logo.png"
+                        alt="UDAWG"
+                        className="h-6 w-6 mr-2"
+                      />
                       Total Supply
                     </h3>
                     <p className="text-gray-300 text-xl break-all">
-                      {totalSupply ? formatWithCommas(totalSupply) : "Loading..."} UDAWG
+                      {totalSupply
+                        ? formatWithCommas(totalSupply)
+                        : "Loading..."}{" "}
+                      UDAWG
                     </p>
                   </div>
 
                   <div className="bg-black/30 p-6 rounded-xl border border-gray-800/30">
                     <h3 className="text-white font-medium flex items-center mb-3">
-                      <img src="/assets/images/trx.png" alt="TRX" className="h-6 w-6 mr-2" />
+                      <img
+                        src="/assets/images/trx.png"
+                        alt="TRX"
+                        className="h-6 w-6 mr-2"
+                      />
                       Contract TRX Reserve
                     </h3>
                     <p className="text-gray-300 text-xl break-all">
-                      {trxReserve ? formatWithCommas(trxReserve) : "Loading..."} TRX
+                      {trxReserve ? formatWithCommas(trxReserve) : "Loading..."}{" "}
+                      TRX
                     </p>
                   </div>
 

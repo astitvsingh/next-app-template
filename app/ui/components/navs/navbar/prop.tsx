@@ -1,6 +1,7 @@
 // Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
 // SPDX-License-Identifier: MIT
 
+"use client";
 /**
  * Represents a single navigation link in the Navbar.
  */

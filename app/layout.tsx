@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Footer, Navbar, mainNavLinks } from "@/app";
 
 /**
  * Geist Sans font configuration
@@ -99,7 +100,14 @@ async function RootLayout({
           Main content wrapper
           @customize Add global layouts, providers, or context here 
         */}
+        <Navbar
+          logoSrc="/assets/images/logo.png"
+          logoAlt="Company Logo"
+          links={mainNavLinks}
+        />
         {children}
+
+        <Footer />
       </body>
     </html>
   );

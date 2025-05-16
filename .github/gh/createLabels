@@ -1,0 +1,111 @@
+#!/bin/bash
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+# SPDX-License-Identifier: GPL-3.0
+
+# USAGE:
+# This script creates all predefined labels in the GitHub repository.
+#
+# Run this script with:
+# bash ./.github/gh/createLabels
+#
+# Prerequisites:
+# - Ensure GitHub CLI (`gh`) is installed and authenticated.
+# - You must have admin access to the repository.
+# - The script should be executed from the repository root directory.
+
+# Ensure the script exits on errors
+set -e
+
+# Function to create a label
+create_label() {
+    local name="$1"
+    local description="$2"
+    local color="$3"
+    
+    echo -e "\n🏷️  Creating label: $name"
+    
+    if gh label create "$name" --description "$description" --color "$color" --force; then
+        echo -e "✅  Label '$name' created successfully"
+    else
+        echo -e "❌  Failed to create label '$name'"
+        return 1
+    fi
+}
+
+echo -e "\n🚀 Starting label creation process...\n"
+
+# Create Bug Report Label
+create_label "🐞 Bug Report" "Issue Label: Report a bug or unexpected behavior. TITLE=\"[🐞 BUG REPORT]: \`<title>\`\"" "d73a4a"
+
+# Create Documentation Label
+create_label "📚 Documentation" "General Label: Improvements or additions to documentation." "0075ca"
+
+# Create Duplicate Label
+create_label "➿ Duplicate" "General Label: This issue or pull request already exists." "cfd3d7"
+
+# Create Good First Issue Label
+create_label "🧩 Good First Issue" "General Label: Good for newcomers." "7057ff"
+
+# Create Help Wanted Label
+create_label "🙋 Help Wanted" "General Label: Extra attention is needed." "008672"
+
+# Create Invalid Label
+create_label "🚫 Invalid" "General Label: This doesn't seem right." "e4e669"
+
+# Create Question Label
+create_label "❓ Question" "General Label: Further information is requested." "d876e3"
+
+# Create Won't Fix Label
+create_label "❌ Won't Fix" "General Label: This will not be worked on." "ffffff"
+
+# Create Feature Label
+create_label "🌟 Feature" "Git Flow Label: Represents a feature branch task." "61affe"
+
+# Create Hotfix Label
+create_label "🩹 Hotfix" "Git Flow Label: Represents a critical bug fix task." "ff0000"
+
+# Create Release Label
+create_label "🚀 Release" "Git Flow Label: Tracks tasks related to preparing a release." "7d4b12"
+
+# Create Support Label
+create_label "🛠️ Support" "Git Flow Label: For tasks related to long-term support fixes." "ffa500"
+
+# Create Status Labels
+create_label "🗂️ Status: Backlog" "Status Label: Tasks that are in the backlog and not yet prioritized." "e3e3e3"
+create_label "⛔ Status: Blocked" "Status Label: Tasks that are blocked or on hold due to dependencies or other reasons." "f4c542"
+create_label "✅ Status: To Do" "Status Label: Tasks that are ready to be worked on." "0075ca"
+create_label "🛠️ Status: In Progress" "Status Label: Tasks actively being worked on." "1d76db"
+create_label "🧪 Status: Testing" "Status Label: Tasks under testing or QA review." "e11d21"
+create_label "📚 Status: Documentation" "Status Label: Tasks requiring or undergoing documentation." "0075ca"
+create_label "🔍 Status: In Review" "Status Label: Tasks awaiting peer or maintainer review." "dbab09"
+create_label "🏁 Status: Done" "Status Label: Completed tasks." "0e8a16"
+
+# Create Priority Labels
+create_label "🔥 Priority: High" "Priority Label: High-priority task." "b60205"
+create_label "🟠 Priority: Medium" "Priority Label: Medium-priority task." "fbca04"
+create_label "🟢 Priority: Low" "Priority Label: Low-priority task." "0e8a16"
+
+# Create Additional Labels
+create_label "🔒 Security" "General Label: Security vulnerability or concern." "f9a825"
+create_label "⚡ Performance" "General Label: Performance improvement or degradation." "5319e7"
+create_label "🔗 Dependencies" "General Label: Related to dependency updates." "0366d6"
+create_label "🧪 Testing" "General Label: Related to tests or testing frameworks." "e11d21"
+create_label "🎨 UX/UI" "General Label: User experience or user interface issue." "cc317c"
+create_label "⛔ Blocked" "General Label: Task is blocked by another dependency." "f4c542"
+create_label "🔍 Review Needed" "General Label: Waiting for review or feedback." "dbab09"
+create_label "🚨 Critical" "General Label: Critical issue requiring immediate attention." "86181d"
+create_label "🏆 Epic" "General Label: A broad or high-level task grouping smaller tasks." "a2b9d9"
+create_label "✨ Feature Request" "Issue Label: New feature Request." "a2eeef"
+
+# Create Default Labels
+create_label "bug" "Default Label: Something isn't working." "d73a4a"
+create_label "documentation" "Default Label: Improvements or additions to documentation." "0075ca"
+create_label "duplicate" "Default Label: This issue or pull request already exists." "cfd3d7"
+create_label "enhancement" "Default Label: New feature or request." "a2eeef"
+create_label "good first issue" "Default Label: Good for newcomers." "7057ff"
+create_label "help wanted" "Default Label: Extra attention is needed." "008672"
+create_label "invalid" "Default Label: This doesn't seem right." "e4e669"
+create_label "question" "Default Label: Further information is requested." "d876e3"
+create_label "wontfix" "Default Label: This will not be worked on." "ffffff"
+
+echo -e "\n🎉 Label creation process completed!\n" 

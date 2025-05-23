@@ -1,0 +1,31 @@
+#!/bin/bash
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+# SPDX-License-Identifier: GPL-3.0
+
+# USAGE:
+# This script sets up GitHub CLI (`gh`) with full scope access for a repository.
+#
+# Run this script with:
+# bash ./.github/gh/auth
+#
+# Prerequisites:
+# - Ensure GitHub CLI (`gh`) is installed on your system.
+# - You must have access to the GitHub account you wish to authenticate.
+# - The script should be executed from the repository root directory.
+
+# Ensure the script exits on errors
+set -e
+
+# Authenticate GitHub CLI with full scope access
+echo -e "\n🔐  Authenticating GitHub CLI with full scope access...\n"
+
+if gh auth login --scopes "repo, workflow, read:packages, write:packages, delete:packages, admin:org, gist, notifications, user, read:org, read:public_key, write:public_key, read:gpg_key, write:gpg_key, codespace"; then
+  # Handle authentication success
+  echo -e "\n✅  GitHub CLI authentication successful. Current status:\n"
+  # Confirm authentication status
+  gh auth status
+else
+  # Handle authentication failure
+  echo -e "\n❌  GitHub CLI authentication failed. Please try again.\n"
+  exit 1
+fi

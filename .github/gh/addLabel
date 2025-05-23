@@ -1,0 +1,43 @@
+#!/bin/bash
+# Copyright 2025 © Astitv Singh <https://github.com/astitvsingh>.
+# SPDX-License-Identifier: GPL-3.0
+
+# USAGE:
+# This script adds labels to GitHub issues or pull requests.
+#
+# Run this script with:
+# bash ./.github/gh/addLabel <ISSUE_NUMBER> <LABEL_NAME>
+#
+# Example:
+# bash ./.github/gh/addLabel 123 "bug"
+#
+# Prerequisites:
+# - Ensure GitHub CLI (`gh`) is installed and authenticated.
+# - You must have write access to the repository.
+# - The script should be executed from the repository root directory.
+
+# Ensure the script exits on errors
+set -e
+
+# Check if required arguments are provided
+if [ $# -lt 2 ]; then
+    echo -e "\n❌  Error: Missing required arguments"
+    echo -e "Usage: bash ./.github/gh/addLabel <ISSUE_NUMBER> <LABEL_NAME>\n"
+    exit 1
+fi
+
+ISSUE_NUMBER=$1
+LABEL_NAME=$2
+
+# Add label to the issue/PR
+echo -e "\n🏷️  Adding label '$LABEL_NAME' to issue/PR #$ISSUE_NUMBER...\n"
+
+if gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_NAME"; then
+    echo -e "\n✅  Label added successfully!\n"
+else
+    echo -e "\n❌  Failed to add label. Please check if:"
+    echo -e "   - The issue/PR number is valid"
+    echo -e "   - The label exists in the repository"
+    echo -e "   - You have the necessary permissions\n"
+    exit 1
+fi
